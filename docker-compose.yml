@@ -1,0 +1,35 @@
+version: '3.3'
+services:
+
+  grafana:
+    build: './grafana'
+    container_name: 'grafana'
+    ports:
+      - '3000:3000'
+ #   volumes:
+ #     - "/tmp/grafana:/var/lib/grafana"
+  # environment:
+   # -GF_SECURITY_ADMIN_PASSWORD:"secret"
+    
+
+  graphite:
+    image: graphiteapp/graphite-statsd
+    ports:
+    - "80:80"
+    - "2003:2003"
+    - "2003:2003/udp"
+    volumes:
+    - "/tmp/graphite:/opt/graphite/storage"
+    - "/tmp/graphite:/var/log/supervisor"
+  
+  collectd:
+    build: './collectd'
+    environment:
+      HOST_NAME: myserver
+      GRAPHITE_HOST: graphite
+      GRAPHITE_PORT: 2003
+      GRAPHITE_PREFIX: collectd.
+      REPORT_BY_CPU: 'false'
+      COLLECT_INTERVAL: 10
+    links:
+      - graphite

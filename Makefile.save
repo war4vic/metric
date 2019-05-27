@@ -1,0 +1,6 @@
+run:
+
+update-dashboards:
+	./update-dashboards.sh
+
+.PHONY: run update-dashboards
