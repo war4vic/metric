@@ -15,9 +15,9 @@ services:
   graphite:
     image: graphiteapp/graphite-statsd
     ports:
-    - "80:80"
-    - "2003:2003"
-    - "2003:2003/udp"
+    - '80:80'
+    - '2003:2003'
+    - '2003:2003/udp'
     volumes:
     - "/tmp/graphite:/opt/graphite/storage"
     - "/tmp/graphite:/var/log/supervisor"
@@ -25,7 +25,7 @@ services:
   collectd:
     build: './collectd'
     environment:
-      HOST_NAME: myserver
+      HOST_NAME: cloud
       GRAPHITE_HOST: graphite
       GRAPHITE_PORT: 2003
       GRAPHITE_PREFIX: collectd.
