@@ -25,7 +25,8 @@ services:
     volumes:
     - "/tmp/graphite:/opt/graphite/storage"
     - "/tmp/graphite:/var/log/supervisor"
-  
+    links:
+    - grafana
   collectd:
     build: './collectd'
     container_name: 'collectd'
