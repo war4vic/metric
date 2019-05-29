@@ -17,6 +17,7 @@ services:
 
   graphite:
     image: graphiteapp/graphite-statsd
+    container_name: 'graphite'
     ports:
     - '80:80'
     - '2003:2003'
@@ -27,6 +28,7 @@ services:
   
   collectd:
     build: './collectd'
+    container_name: 'collectd'
     environment:
       HOST_NAME: cloud
       GRAPHITE_HOST: graphite
