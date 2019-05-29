@@ -4,5 +4,5 @@ run:
 stop:
 	./stop.sh
 
-rm:
+remove:
 	./rm.sh
