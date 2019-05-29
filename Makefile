@@ -1,7 +1,8 @@
 run:
 	docker-compose up -d --build 
 
-update-dashboards:
-	./update-dashboards.sh
+stop:
+	./stop.sh
 
-.PHONY: run update-dashboards
+rm:
+	./rm.sh
