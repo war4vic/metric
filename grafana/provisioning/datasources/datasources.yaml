@@ -1,8 +1,0 @@
-datasources:
-- name: 'Graphite'
-  type: 'graphite'
-  access: 'proxy'
-  url: 'http://graphite:80'
-  is_default: true
-  version: 1
-  editable: true
