@@ -1,0 +1,15 @@
+run yaml
+kubectl apply -f grafana.yaml 
+
+delete volume
+kubectl delete persistentvolumeclaim grafana-storage
+
+cd /git/metric/grafana to create docker image
+gcloud builds submit --tag=gcr.io/lv-401-devops/img_grafana:latest
+
+cd /git/metric/collectd to create docker image
+gcloud builds submit --tag=gcr.io/lv-401-devops/img_collectd:latest
+
+logs pods 
+kubectl get pods
+kubectl logs grafana-core-557667f868-xv5qf -p

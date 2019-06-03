@@ -6,7 +6,7 @@ RUN     apt-get -y update
 RUN     apt-get -y install collectd curl python-pip
 
 # add a fake mtab for host disk stats
-ADD     etc_mtab /etc/mtab
+#ADD     etc_mtab /etc/mtab
 
 ADD     collectd.conf.tpl /etc/collectd/collectd.conf.tpl
 

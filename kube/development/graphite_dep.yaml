@@ -1,0 +1,40 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: graphite-core
+  namespace: monitoring
+  labels:
+    app: graphite
+    component: core
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: graphite
+        component: core
+    spec:
+      containers:
+      - name: graphite-graph
+        image: graphiteapp/graphite-statsd
+        ports: 
+        - containerPort: 80
+          name: gweb
+        - containerPort: 2003 
+          name: gnode
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+        volumeMounts:
+        - mountPath: /opt/graphite/storage
+          name: graphite-storage
+        - mountPath: /var/log/supervisor
+          name: graphite-log
+      volumes:
+      - name: graphite-storage
+        persistentVolumeClaim:
+          claimName: graphite-storage
+      - name: graphite-log
+        persistentVolumeClaim:
+          claimName: graphite-log

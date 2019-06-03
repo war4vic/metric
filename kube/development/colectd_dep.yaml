@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: collectd-core
+  namespace: monitoring
+  labels:
+    app: collectd 
+    component: core
+spec:
+  selector:
+    matchLabels:
+      name: collectd
+  template:
+    metadata:
+      labels:
+        name: collectd
+    spec:
+      tolerations:
+      - key: node-role.kubernetes.io/master
+      containers:
+      - name: collectd-graph
+        image: gcr.io/lv-401-devops/img_collectd:latest
+        env:
+        - name: HOST_NAME
+          value: 
+        - name: GRAPHITE_HOST
+          value: '10.51.253.22'
+        - name: GRAPHITE_PORT
+          value: '2003'
+        - name: GRAPHITE_PREFIX
+          value: collectd.
+        - name: REPORT_BY_CPU
+          value: 'false'
+        - name: COLLECT_INTERVAL
+          value: '10'

@@ -1,0 +1,1 @@
+export KUBE_NAMESPACE="monotoring"

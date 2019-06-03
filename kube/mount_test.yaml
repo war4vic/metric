@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: mount-docker
+#  namespace: kube-system
+  labels:
+    app: mount-docker
+    component: core
+spec:
+  selector:
+    matchLabels:
+      name: mount-docker
+  template:
+    metadata:
+      labels:
+        name: mount-docker
+    spec:
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule	
+      initContainers:
+      - name: prep-symlink
+        image: "busybox"
+        command: ["bin/sh", "-ec", "ln -s / /mnt/data/"]
+        volumeMounts:
+        - name: my-volume
+          mountPath: /mnt/data
+      containers:
+      - name: my-container
+        image: "busybox"
+        command: ["/bin/sh", "-ec", "ls /mnt/data; sleep 999999"]
+        volumeMounts:
+        - mountPath: /mnt/data
+          name: my-volume
+#          subPath: symlink-door
+      volumes:
+      - name: my-volume
+        emptyDir: {}

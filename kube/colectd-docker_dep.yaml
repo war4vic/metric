@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: collectd-docker
+#  namespace: kube-system
+  labels:
+    app: collectd-docker
+    component: core
+spec:
+  selector:
+    matchLabels:
+      name: collectd-docker
+  template:
+    metadata:
+      labels:
+        name: collectd-docker
+    spec:
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule
+      containers:
+      - name: collectd-docker
+        image: gcr.io/lv-401-devops/img_collectd-docker:latest
+        env:
+        - name: COLLECTD_HOST
+          value: docker
+        - name: GRAPHITE_HOST
+          value: '10.51.253.22'
+        - name: GRAPHITE_PORT
+          value: '2003'
+        - name: GRAPHITE_PREFIX
+          value: collectd.
+        - name: REPORT_BY_CPU
+          value: 'false'
+        - name: COLLECT_INTERVAL
+          value: '10'
+        volumeMounts:
+        - mountPath: /var/run/docker.sock
+          name: my-volume
+      volumes:
+      - name: my-volume
