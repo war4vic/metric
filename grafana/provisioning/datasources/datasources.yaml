@@ -1,8 +1,13 @@
 datasources:
 - name: 'Graphite'
   type: 'graphite'
+<<<<<<< HEAD
   access: 'proxy'
   url: 'http://graphite:80'
+=======
+  access: 'direct'
+  url: 'http://localhost:80'
+>>>>>>> b3349c92274a4365f0731caf8db64ddf391cb9aa
   is_default: true
   version: 1
   editable: true

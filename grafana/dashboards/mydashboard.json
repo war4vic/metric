@@ -2476,8 +2476,8 @@
         "allFormat": "glob",
         "allValue": null,
         "current": {
-          "text": "e6430-Latitude-E6430",
-          "value": "e6430-Latitude-E6430"
+          "text": "collectd",
+          "value": "collectd"
         },
         "datasource": "Graphite",
         "definition": "$prefix.*",
